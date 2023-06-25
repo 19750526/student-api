@@ -16,5 +16,10 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public Long countAllStudents() {
+        return studentRepository.count();
+    }
+
+
 
 }

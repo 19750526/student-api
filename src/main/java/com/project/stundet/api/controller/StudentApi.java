@@ -24,4 +24,9 @@ public class StudentApi {
     List<Student> all() {
         return studentService.fetchAllStudents();
     }
+
+    @GetMapping("/count")
+    Long studentsAmount() {
+        return studentService.countAllStudents();
+    }
 }
