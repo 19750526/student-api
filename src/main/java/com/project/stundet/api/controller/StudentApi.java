@@ -21,11 +21,16 @@ public class StudentApi {
     }
 
     @PostMapping
-    ResponseEntity<Void> addStudent(List<StudentDto> studentDtos) {
+    ResponseEntity<Void> addStudent(@RequestBody List<StudentDto> studentDtos) {
         studentService.addStudents(studentDtos);
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}")
+    ResponseEntity<Void> addStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
+        studentService.updateStudent(id, studentDto);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/stats/count-all")
     Long studentsAmount() {

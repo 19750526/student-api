@@ -2,6 +2,7 @@ package com.project.stundet.api.service;
 
 import com.project.stundet.api.dto.StudentDto;
 import com.project.stundet.api.entity.Student;
+import com.project.stundet.api.error.NotFoundException;
 import com.project.stundet.api.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,15 @@ public class StudentService {
             return student;
         }).collect(Collectors.toList());
         studentRepository.saveAll(students);
+    }
+
+    public void updateStudent(Long id, StudentDto studentDto) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Student with id %d not found", id)));
+        student.setName(studentDto.getName());
+        student.setSurname(studentDto.getSurname());
+        student.setCourse(studentDto.getCourse());
+        student.setDateBirth(studentDto.getDateBirth());
+        studentRepository.save(student);
     }
 }
