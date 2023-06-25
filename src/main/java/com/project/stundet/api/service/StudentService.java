@@ -1,11 +1,13 @@
 package com.project.stundet.api.service;
 
+import com.project.stundet.api.dto.StudentDto;
 import com.project.stundet.api.entity.Student;
 import com.project.stundet.api.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,4 +27,15 @@ public class StudentService {
         return studentRepository.countByCourse(course);
     }
 
+    public void addStudents(List<StudentDto> studentDtos) {
+        List<Student> students = studentDtos.stream().map(studentDto -> {
+            Student student = new Student();
+            student.setName(studentDto.getName());
+            student.setSurname(studentDto.getSurname());
+            student.setCourse(studentDto.getCourse());
+            student.setDateBirth(studentDto.getDateBirth());
+            return student;
+        }).collect(Collectors.toList());
+        studentRepository.saveAll(students);
+    }
 }
