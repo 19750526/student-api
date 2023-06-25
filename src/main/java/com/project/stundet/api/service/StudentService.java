@@ -49,4 +49,8 @@ public class StudentService {
         student.setDateBirth(studentDto.getDateBirth());
         studentRepository.save(student);
     }
+
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
 }

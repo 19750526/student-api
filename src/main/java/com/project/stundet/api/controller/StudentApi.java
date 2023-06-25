@@ -32,6 +32,12 @@ public class StudentApi {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> addStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/stats/count-all")
     Long studentsAmount() {
         return studentService.countAllStudents();
