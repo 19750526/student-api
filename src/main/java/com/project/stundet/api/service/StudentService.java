@@ -55,12 +55,22 @@ public class StudentService {
 
     public List<StudentDto> fetchStudentByFullName(String name, String surname) {
         return studentRepository.findByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname).stream().map(student -> {
-            StudentDto studentDto = new StudentDto();
-            studentDto.setName(student.getName());
-            studentDto.setSurname(student.getSurname());
-            studentDto.setCourse(student.getCourse());
-            studentDto.setDateBirth(student.getDateBirth());
-            return studentDto;
+            return databaseToDto(student);
         }).collect(Collectors.toList());
     }
+
+    private static StudentDto databaseToDto(Student student) {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setName(student.getName());
+        studentDto.setSurname(student.getSurname());
+        studentDto.setCourse(student.getCourse());
+        studentDto.setDateBirth(student.getDateBirth());
+        return studentDto;
+    }
+
+    public List<StudentDto> fetchStudentByCourse(String course) {
+        return studentRepository.findByCourse(course).stream().map(student -> databaseToDto(student))
+                .collect(Collectors.toList());
+    }
+
 }
