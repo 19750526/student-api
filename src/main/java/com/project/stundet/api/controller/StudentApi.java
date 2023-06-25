@@ -47,4 +47,9 @@ public class StudentApi {
     Long studentsAmountForCourse(@RequestParam(name = "course", required = true) String course) {
         return studentService.countStudentsForCourse(course);
     }
+
+    @GetMapping("/search")
+    ResponseEntity<List<StudentDto>> filterByStudentsData(@RequestParam(name = "name") String name, @RequestParam(name = "surname") String surname) {
+        return ResponseEntity.ok(studentService.fetchStudentByFullName(name, surname));
+    }
 }

@@ -23,7 +23,6 @@ public class StudentService {
         return studentRepository.count();
     }
 
-
     public Long countStudentsForCourse(String course) {
         return studentRepository.countByCourse(course);
     }
@@ -52,5 +51,16 @@ public class StudentService {
 
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
+    }
+
+    public List<StudentDto> fetchStudentByFullName(String name, String surname) {
+        return studentRepository.findByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname).stream().map(student -> {
+            StudentDto studentDto = new StudentDto();
+            studentDto.setName(student.getName());
+            studentDto.setSurname(student.getSurname());
+            studentDto.setCourse(student.getCourse());
+            studentDto.setDateBirth(student.getDateBirth());
+            return studentDto;
+        }).collect(Collectors.toList());
     }
 }
