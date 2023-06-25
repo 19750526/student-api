@@ -21,5 +21,8 @@ public class StudentService {
     }
 
 
+    public Long countStudentsForCourse(String course) {
+        return studentRepository.countByCourse(course);
+    }
 
 }

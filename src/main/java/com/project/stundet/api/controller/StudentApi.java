@@ -5,6 +5,7 @@ import com.project.stundet.api.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -25,8 +26,13 @@ public class StudentApi {
         return studentService.fetchAllStudents();
     }
 
-    @GetMapping("/count")
+    @GetMapping("/stats/count-all")
     Long studentsAmount() {
         return studentService.countAllStudents();
+    }
+
+    @GetMapping("/stats/count")
+    Long studentsAmountForCourse(@RequestParam(name = "course", required = true) String course) {
+        return studentService.countStudentsForCourse(course);
     }
 }
