@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,10 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentApi {
     private final StudentService studentService;
-    @GetMapping("test")
-    List<String> test() {
-        return new ArrayList<>();
-    }
 
     @GetMapping
     List<Student> all() {
