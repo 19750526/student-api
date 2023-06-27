@@ -16,7 +16,7 @@ public class StudentApi {
     private final StudentService studentService;
 
     @GetMapping
-    ResponseEntity<StudentReportDto> all() {
+    ResponseEntity<StudentReportDto> allStudents() {
         return ResponseEntity.ok(studentService.fetchAllStudents());
     }
 
@@ -27,13 +27,13 @@ public class StudentApi {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> addStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
+    ResponseEntity<Void> editStudentData(@PathVariable Long id, @RequestBody StudentDto studentDto) {
         studentService.updateStudent(id, studentDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> addStudent(@PathVariable Long id) {
+    ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
