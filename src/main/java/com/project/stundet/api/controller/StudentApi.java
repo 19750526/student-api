@@ -1,5 +1,6 @@
 package com.project.stundet.api.controller;
 
+import com.project.stundet.api.dto.StatReportDto;
 import com.project.stundet.api.dto.StudentDto;
 import com.project.stundet.api.dto.StudentReportDto;
 import com.project.stundet.api.service.StudentService;
@@ -39,13 +40,13 @@ public class StudentApi {
     }
 
     @GetMapping("/stats/count-all")
-    Long studentsAmount() {
-        return studentService.countAllStudents();
+    ResponseEntity<StatReportDto> studentsAmount() {
+        return ResponseEntity.ok(studentService.countAllStudents());
     }
 
     @GetMapping("/stats/count")
-    Long studentsAmountForCourse(@RequestParam(name = "course", required = true) String course) {
-        return studentService.countStudentsForCourse(course);
+    ResponseEntity<StatReportDto> studentsAmountForCourse(@RequestParam(name = "course", required = true) String course) {
+        return ResponseEntity.ok(studentService.countStudentsForCourse(course));
     }
 
     @GetMapping("/search-by-full-name")
@@ -59,7 +60,7 @@ public class StudentApi {
     }
 
     @GetMapping("/stats/avg-age")
-    ResponseEntity<Double> countAvgAge() {
+    ResponseEntity<StatReportDto> countAvgAge() {
         return ResponseEntity.ok(studentService.countAvgAge());
     }
 }

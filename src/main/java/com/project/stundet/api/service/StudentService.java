@@ -1,5 +1,6 @@
 package com.project.stundet.api.service;
 
+import com.project.stundet.api.dto.StatReportDto;
 import com.project.stundet.api.dto.StudentDto;
 import com.project.stundet.api.dto.StudentReportDto;
 import com.project.stundet.api.entity.Student;
@@ -24,12 +25,12 @@ public class StudentService {
         return new StudentReportDto(students);
     }
 
-    public Long countAllStudents() {
-        return studentRepository.count();
+    public StatReportDto countAllStudents() {
+        return new StatReportDto(studentRepository.count());
     }
 
-    public Long countStudentsForCourse(String course) {
-        return studentRepository.countByCourse(course);
+    public StatReportDto countStudentsForCourse(String course) {
+        return new StatReportDto( studentRepository.countByCourse(course));
     }
 
     public void addStudents(List<StudentDto> studentDtos) {
@@ -78,7 +79,7 @@ public class StudentService {
         return new StudentReportDto(studentDtos);
     }
 
-    public double countAvgAge() {
+    public StatReportDto countAvgAge() {
         List<Student> students = studentRepository.findAll();
         List<Integer> ages = new ArrayList<>();
         students.forEach(student -> {
@@ -90,8 +91,9 @@ public class StudentService {
             for (Integer age : ages) {
                 sum += age;
             }
-            return sum / ages.size();
+            var avg = sum / ages.size();
+            return new StatReportDto((long) avg);
         }
-        return 0;
+        return new StatReportDto(0L);
     }
 }
