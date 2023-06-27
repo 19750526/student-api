@@ -58,10 +58,10 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public List<StudentDto> fetchStudentByFullName(String name, String surname) {
-        return studentRepository.findByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname).stream().map(student -> {
-            return databaseToDto(student);
-        }).collect(Collectors.toList());
+    public StudentReportDto fetchStudentByFullName(String name, String surname) {
+        List<StudentDto> students = studentRepository.findByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname)
+                .stream().map(StudentService::databaseToDto).toList();
+        return new StudentReportDto(students);
     }
 
     private static StudentDto databaseToDto(Student student) {
@@ -73,9 +73,9 @@ public class StudentService {
         return studentDto;
     }
 
-    public List<StudentDto> fetchStudentByCourse(String course) {
-        return studentRepository.findByCourse(course).stream().map(student -> databaseToDto(student))
-                .collect(Collectors.toList());
+    public StudentReportDto fetchStudentByCourse(String course) {
+        var studentDtos = studentRepository.findByCourse(course).stream().map(StudentService::databaseToDto).toList();
+        return new StudentReportDto(studentDtos);
     }
 
     public double countAvgAge() {

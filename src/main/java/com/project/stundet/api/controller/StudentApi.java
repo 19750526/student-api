@@ -49,12 +49,12 @@ public class StudentApi {
     }
 
     @GetMapping("/search-by-full-name")
-    ResponseEntity<List<StudentDto>> filterByStudentsData(@RequestParam(name = "name") String name, @RequestParam(name = "surname") String surname) {
+    ResponseEntity<StudentReportDto> filterByStudentsData(@RequestParam(name = "name") String name, @RequestParam(name = "surname") String surname) {
         return ResponseEntity.ok(studentService.fetchStudentByFullName(name, surname));
     }
 
     @GetMapping("/search-by-course")
-    ResponseEntity<List<StudentDto>> filterByStudentsData(@RequestParam(name = "course", required = true) String course) {
+    ResponseEntity<StudentReportDto> filterByStudentsData(@RequestParam(name = "course", required = true) String course) {
         return ResponseEntity.ok(studentService.fetchStudentByCourse(course));
     }
 
