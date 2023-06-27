@@ -7,6 +7,9 @@ import com.project.stundet.api.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,4 +76,20 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
+    public double countAvgAge() {
+        List<Student> students = studentRepository.findAll();
+        List<Integer> ages = new ArrayList<>();
+        students.forEach(student -> {
+            int age = Period.between(student.getDateBirth(), LocalDate.now()).getYears();
+            ages.add(age);
+        });
+        double sum = 0;
+        if(!ages.isEmpty()) {
+            for (Integer age : ages) {
+                sum += age;
+            }
+            return sum / ages.size();
+        }
+        return 0;
+    }
 }
