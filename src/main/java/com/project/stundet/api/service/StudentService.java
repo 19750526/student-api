@@ -1,6 +1,7 @@
 package com.project.stundet.api.service;
 
 import com.project.stundet.api.dto.StudentDto;
+import com.project.stundet.api.dto.StudentReportDto;
 import com.project.stundet.api.entity.Student;
 import com.project.stundet.api.error.NotFoundException;
 import com.project.stundet.api.repository.StudentRepository;
@@ -18,8 +19,9 @@ import java.util.stream.Collectors;
 public class StudentService {
     private final StudentRepository studentRepository;
 
-    public List<Student> fetchAllStudents() {
-        return studentRepository.findAll();
+    public StudentReportDto fetchAllStudents() {
+        List<StudentDto> students = studentRepository.findAll().stream().map(StudentService::databaseToDto).toList();
+        return new StudentReportDto(students);
     }
 
     public Long countAllStudents() {

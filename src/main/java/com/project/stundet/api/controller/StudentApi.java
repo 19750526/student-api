@@ -1,7 +1,7 @@
 package com.project.stundet.api.controller;
 
 import com.project.stundet.api.dto.StudentDto;
-import com.project.stundet.api.entity.Student;
+import com.project.stundet.api.dto.StudentReportDto;
 import com.project.stundet.api.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ public class StudentApi {
     private final StudentService studentService;
 
     @GetMapping
-    List<Student> all() {
-        return studentService.fetchAllStudents();
+    ResponseEntity<StudentReportDto> all() {
+        return ResponseEntity.ok(studentService.fetchAllStudents());
     }
 
     @PostMapping
