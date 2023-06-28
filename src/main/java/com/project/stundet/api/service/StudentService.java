@@ -30,7 +30,7 @@ public class StudentService {
     }
 
     public StatReportDto countStudentsForCourse(String course) {
-        return new StatReportDto( studentRepository.countByCourse(course));
+        return new StatReportDto(studentRepository.countByCourse(course));
     }
 
     public void addStudents(List<StudentDto> studentDtos) {
@@ -86,14 +86,19 @@ public class StudentService {
             int age = Period.between(student.getDateBirth(), LocalDate.now()).getYears();
             ages.add(age);
         });
-        double sum = 0;
-        if(!ages.isEmpty()) {
-            for (Integer age : ages) {
-                sum += age;
-            }
-            var avg = sum / ages.size();
+
+        if (!ages.isEmpty()) {
+            double avg = avg(ages);
             return new StatReportDto((long) avg);
         }
         return new StatReportDto(0L);
+    }
+
+    public double avg(List<Integer> ages) {
+        double sum = 0;
+        for (Integer age : ages) {
+            sum += age;
+        }
+        return sum / ages.size();
     }
 }
